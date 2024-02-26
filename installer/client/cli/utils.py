@@ -5,11 +5,10 @@ import pyperclip
 import sys
 import platform
 from dotenv import load_dotenv
-from requests.exceptions import HTTPError
-from tqdm import tqdm
 import zipfile
 import tempfile
 import shutil
+from security import safe_requests
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
 config_directory = os.path.expanduser("~/.config/fabric")
@@ -246,7 +245,7 @@ class Update:
 
     def download_zip(self, url, save_path):
         """Download the zip file from the specified URL."""
-        response = requests.get(url)
+        response = safe_requests.get(url)
         response.raise_for_status()  # Check if the download was successful
         with open(save_path, 'wb') as f:
             f.write(response.content)
