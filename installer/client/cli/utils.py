@@ -204,8 +204,7 @@ class Standalone:
         Returns:
             string from either user or pipe
         """
-        system = platform.system()
-        if system == 'Windows':
+        if (system := platform.system()) == 'Windows':
             if not sys.stdin.isatty():  # Check if input is being piped
                 return sys.stdin.read().strip()  # Read piped input
             else:
